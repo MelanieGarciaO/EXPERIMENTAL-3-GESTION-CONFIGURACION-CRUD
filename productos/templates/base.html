@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <title>{% block title %}Mi Aplicación{% endblock %}</title>
+</head>
+<body class="bg-gray-100 text-gray-800 flex">
+    <nav class="bg-white shadow-lg w-64 min-h-screen">
+        <div class="p-6">
+            <a href="{% url 'home' %}" class="flex items-center py-5 px-2 text-gray-700 hover:text-gray-900">
+                <svg class="h-6 w-6 mr-1 text-blue-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M13 5v6h6m-6 4h6m-6 4h6m-6-8l-7 7-2-2"/>
+                </svg>
+                <span class="font-bold">PruebaTecnica😁</span>
+            </a>
+        </div>
+        <div class="px-6">
+            <a href="{% url 'home' %}" class="flex items-center block py-2 px-4 text-gray-700 hover:bg-gray-200 rounded">
+                <svg class="h-5 w-5 mr-2 text-gray-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M3 12l2-2m0 0l7-7 7 7M13 5v6h6m-6 4h6m-6 4h6m-6-8l-7 7-2-2"/>
+                </svg>
+                Home
+            </a>
+            <a href="{% url 'product_list' %}" class="flex items-center block py-2 px-4 text-gray-700 hover:bg-gray-200 rounded">
+                <svg class="h-5 w-5 mr-2 text-gray-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"/>
+                </svg>
+                Productos
+            </a>
+            <a href="{% url 'marca_list' %}" class="flex items-center block py-2 px-4 text-gray-700 hover:bg-gray-200 rounded">
+                <svg class="h-5 w-5 mr-2 text-gray-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3h14a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2z"/>
+                </svg>
+                Marcas
+            </a>
+        </div>
+    </nav>
+    <div class="flex-1 p-8">
+        {% block content %}{% endblock %}
+    </div>
+    <script>
+        const btn = document.querySelector('button.mobile-menu-button');
+        const menu = document.querySelector('.mobile-menu');
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+    </script>
+</body>
+</html>

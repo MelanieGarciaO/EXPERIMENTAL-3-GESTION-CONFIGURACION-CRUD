@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}Inicio{% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto bg-white p-8 rounded-lg shadow-lg">
+    <h1 class="text-3xl font-bold mb-6">Inicio</h1>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="bg-blue-100 p-6 rounded-lg shadow-md">
+            <h2 class="text-xl font-semibold mb-4">Marcas</h2>
+            <a href="{% url 'create_marca' %}" class="block w-full py-2 px-4 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75 mb-2 text-center">
+                Agregar Marca
+            </a>
+            <a href="{% url 'marca_list' %}" class="block w-full py-2 px-4 bg-green-500 text-white font-semibold rounded-lg shadow-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-opacity-75 text-center">
+                Listar Marcas
+            </a>
+        </div>
+        <div class="bg-yellow-100 p-6 rounded-lg shadow-md">
+            <h2 class="text-xl font-semibold mb-4">Productos</h2>
+            <a href="{% url 'create_product' %}" class="block w-full py-2 px-4 bg-yellow-500 text-white font-semibold rounded-lg shadow-md hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:ring-opacity-75 mb-2 text-center">
+                Agregar Producto
+            </a>
+            <a href="{% url 'product_list' %}" class="block w-full py-2 px-4 bg-green-500 text-white font-semibold rounded-lg shadow-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-opacity-75 text-center">
+                Listar Productos
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}

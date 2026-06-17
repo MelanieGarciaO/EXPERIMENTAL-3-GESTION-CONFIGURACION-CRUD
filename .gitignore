@@ -1,0 +1,37 @@
+# Variables de entorno
+.env
+
+# Archivos de configuración
+config.json
+
+# Archivos de log
+logs/
+
+# Archivos de base de datos
+db/
+.sql
+.sqlite
+.db
+
+# Entornos virtuales
+venv/
+env/
+
+# Archivos de caché
+__pycache__/
+
+# Archivos de compilación
+build/
+
+# Archivos de distribución
+dist/
+
+# Archivos de cobertura de pruebas
+coverage/
+
+# Archivos de IDE
+.idea/
+.vscode/
+
+# Archivos de sistema
+.DS_Store
