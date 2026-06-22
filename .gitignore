@@ -34,4 +34,5 @@ coverage/
 .vscode/
 
 # Archivos de sistema
-.DS_Store
+.DS_Storedjango-image.tar.gz
+django-image.tar.gz
