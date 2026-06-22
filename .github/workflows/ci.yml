@@ -1,70 +1,55 @@
-name: CI - Django Docker Build
+name: CI - Django Tests
 
 on:
   push:
-    branches: [ main, develop ]
+    branches: [ main, ci-setup ]
   pull_request:
-    branches: [ main, develop ]
+    branches: [ main ]
 
 jobs:
-  build:
+  test:
+    name: "Sesión 1 – CI: Tests Django"
     runs-on: ubuntu-latest
-    
+
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_DB: pruebatec
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: mmgo26
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    env:
+      POSTGRES_NAME: pruebatec
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: mmgo26
+      POSTGRES_HOST: localhost
+      POSTGRES_PORT: 5432
+
     steps:
-    - name: Checkout código
-      uses: actions/checkout@v4
-    
-    - name: Set up Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.13.7'
-    
-    - name: Instalar dependencias
-      run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
-    
-    - name: Ejecutar linter (flake8)
-      run: |
-        pip install flake8
-        # Detener el build si hay errores de sintaxis o nombres indefinidos
-        flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
-        # Advertencias para el resto
-        flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
-      continue-on-error: true
-    
-    - name: Ejecutar tests de Django
-      env:
-        POSTGRES_NAME: test_db
-        POSTGRES_USER: postgres
-        POSTGRES_PASSWORD: postgres
-        POSTGRES_HOST: localhost
-        POSTGRES_PORT: 5432
-      run: |
-        python manage.py test --no-input
-      continue-on-error: true
-    
-    - name: Build Docker image
-      run: |
-        docker build -t django-app:${{ github.sha }} .
-    
-    - name: Verificar imagen Docker
-      run: |
-        docker images | grep django-app
-    
-    - name: Test Docker Compose
-      run: |
-        # Verificar si docker-compose existe, sino usar docker compose
-        if command -v docker-compose &> /dev/null; then
-          docker-compose config
-        else
-          docker compose config
-        fi
-        echo "✅ Docker Compose configuración válida"
-    
-    - name: Notificación de éxito
-      if: success()
-      run: |
-        echo "✅ Build completado exitosamente!"
-        echo "Commit: ${{ github.sha }}"
-        echo "Branch: ${{ github.ref }}"
+      - name: Checkout código
+        uses: actions/checkout@v4
+
+      - name: Configurar Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Instalar dependencias
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install python-dotenv
+
+      - name: Ejecutar migraciones
+        run: python manage.py migrate
+
+      - name: Ejecutar tests
+        run: python manage.py test --verbosity=2
