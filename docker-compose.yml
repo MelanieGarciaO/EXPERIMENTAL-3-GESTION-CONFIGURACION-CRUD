@@ -1,10 +1,8 @@
 version: '3.8'
 
 services:
-  # Aplicación Django
   web:
     build: .
-    command: python manage.py runserver 0.0.0.0:8000
     volumes:
       - .:/app
       - static_volume:/app/staticfiles
@@ -14,7 +12,7 @@ services:
       - DEBUG=1
       - POSTGRES_NAME=pruebatec
       - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=123
+      - POSTGRES_PASSWORD=mmgo26
       - POSTGRES_HOST=host.docker.internal
       - POSTGRES_PORT=5432
     extra_hosts:
