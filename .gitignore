@@ -36,3 +36,5 @@ coverage/
 # Archivos de sistema
 .DS_Storedjango-image.tar.gz
 django-image.tar.gz
+django-image.tar
+*.tar.gz
